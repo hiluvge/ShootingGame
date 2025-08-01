@@ -157,7 +157,7 @@ public class SingleShootingGame extends JPanel implements ActionListener {
         while (enemies.size() < stage + 2) {
             spawnEnemy();
         }
-
+    //작업...
         repaint();
     }
 
