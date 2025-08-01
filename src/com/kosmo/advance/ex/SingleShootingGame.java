@@ -13,8 +13,8 @@ class CharacterSelectDialog extends JDialog {
         super(parent, "캐릭터 선택", true);
         setLayout(new FlowLayout());
         setSize(620, 200);
-        String[] imgNames = {"가은이미지1.png", "지형이미지1.png", "지형이미지2.png", "혜지이미지1.png"};
-        String[] captions = {"가은", "지형1", "지형2", "혜지"};
+        String[] imgNames = {"가은이미지1.png", "지형이미지1.png", "지형이미지2.png", "혜지이미지1.png", "우주배경.jpeg", "우주선.png"};
+        String[] captions = {"가은", "지형1", "지형2", "혜지","우주","우주선"};
         for (int i = 0; i < imgNames.length; i++) {
             final int idx = i;
             JButton btn = new JButton("<html><center>" + captions[i] + "<br><img src='" + getClass().getResource(imgNames[i]) + "' width='90' height='90'></center></html>");
@@ -32,6 +32,8 @@ class CharacterSelectDialog extends JDialog {
 
 public class SingleShootingGame extends JPanel implements ActionListener {
     Image[] playerImages;
+    Image backgroundImage; //가은 배경 이미지 위해서 추가
+    Image enemyImage;
     int selectedIndex;
     int width = 1100, height = 850;
     Timer timer = new Timer(12, this);
@@ -58,7 +60,7 @@ public class SingleShootingGame extends JPanel implements ActionListener {
     boolean upPressed = false, downPressed = false;
     boolean laserMode = false;
     int laserTime = 0;
-
+    
     public SingleShootingGame(Image[] playerImages, int selectedIndex) {
         this.playerImages = playerImages;
         this.selectedIndex = selectedIndex;
@@ -312,13 +314,14 @@ public class SingleShootingGame extends JPanel implements ActionListener {
             }
         }
         for (Enemy e2 : enemies) {
-            if (e2.initHp >= 30) g.setColor(Color.RED);
-            else if (e2.initHp >= 20) g.setColor(Color.YELLOW);
-            else if (e2.initHp >= 10) g.setColor(Color.ORANGE);
-            else g.setColor(Color.BLUE);
-            g.fillRect(e2.x, e2.y, e2.w, e2.h);
-            if (e2.initHp >= 30) g.setColor(Color.WHITE);
-            else g.setColor(Color.BLACK);
+            if (enemyImage != null) {
+                g.drawImage(enemyImage, e2.x, e2.y, e2.w, e2.h, this);
+            } else {
+                g.setColor(Color.GRAY);
+                g.fillRect(e2.x, e2.y, e2.w, e2.h);
+            }
+            
+            g.setColor(Color.BLACK);
             g.setFont(new Font("굴림", Font.BOLD, 16));
             g.drawString("HP:" + e2.hp, e2.x + e2.w / 2 - 16, e2.y + e2.h / 2);
         }
@@ -425,7 +428,7 @@ public class SingleShootingGame extends JPanel implements ActionListener {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            String[] imgNames = {"가은이미지1.png", "지형이미지1.png", "지형이미지2.png", "혜지이미지1.png"};
+            String[] imgNames = {"가은이미지1.png", "지형이미지1.png", "지형이미지2.png", "혜지이미지1.png", "우주배경.jpeg", "우주선.png"};
             Image[] playerImages = new Image[imgNames.length];
             for (int i = 0; i < imgNames.length; i++) {
                 try {
