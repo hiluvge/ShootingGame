@@ -296,14 +296,6 @@ public class SingleShootingGame extends JPanel implements ActionListener {
                 spawnEnemy();
             }
         }
-        if (stageMsgFrame > 0) stageMsgFrame--;
-        int nextStage = score / 500 + 1;
-        if (nextStage > stage) {
-            stage = nextStage;
-            stageMsgFrame = 55;
-        }
-        if (stageMsgFrame > 0) stageMsgFrame--;
-
         while (enemies.size() < stage + 2) {
             spawnEnemy();
         }
