@@ -13,8 +13,8 @@ class CharacterSelectDialog extends JDialog {
         super(parent, "캐릭터 선택", true);
         setLayout(new FlowLayout());
         setSize(620, 200);
-        String[] imgNames = {"가은이미지1.png", "지형이미지1.png", "지형이미지2.png", "혜지이미지1.png", "우주배경.jpeg", "우주선.png"};
-        String[] captions = {"가은", "지형1", "지형2", "혜지","우주","우주선"};
+        String[] imgNames = {"가은이미지1.png", "지형이미지1.png", "지형이미지2.png", "혜지이미지1.png"};
+        String[] captions = {"가은", "지형1", "지형2", "혜지"};
         for (int i = 0; i < imgNames.length; i++) {
             final int idx = i;
             JButton btn = new JButton("<html><center>" + captions[i] + "<br><img src='" + getClass().getResource(imgNames[i]) + "' width='90' height='90'></center></html>");
@@ -67,6 +67,14 @@ public class SingleShootingGame extends JPanel implements ActionListener {
         setPreferredSize(new Dimension(width, height));
         setBackground(Color.BLACK);
         setFocusable(true);
+        backgroundImage = new ImageIcon(SingleShootingGame.class.getResource("우주배경.jpeg")).getImage();
+        enemyImage = new ImageIcon(SingleShootingGame.class.getResource("우주선.png")).getImage();
+
+
+        setPreferredSize(new Dimension(width, height));
+        setBackground(Color.BLACK);
+        setFocusable(true);
+
 
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
@@ -297,6 +305,9 @@ public class SingleShootingGame extends JPanel implements ActionListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, width, height, this);
+        } // 가은 수정 배경
         if (playerImages != null && selectedIndex >= 0 && playerImages[selectedIndex] != null) {
             g.drawImage(playerImages[selectedIndex], playerX, playerY, playerW, playerH, this);
         } else {
@@ -428,7 +439,7 @@ public class SingleShootingGame extends JPanel implements ActionListener {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            String[] imgNames = {"가은이미지1.png", "지형이미지1.png", "지형이미지2.png", "혜지이미지1.png", "우주배경.jpeg", "우주선.png"};
+            String[] imgNames = {"가은이미지1.png", "지형이미지1.png", "지형이미지2.png", "혜지이미지1.png"};
             Image[] playerImages = new Image[imgNames.length];
             for (int i = 0; i < imgNames.length; i++) {
                 try {
