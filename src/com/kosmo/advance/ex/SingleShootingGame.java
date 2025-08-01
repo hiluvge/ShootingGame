@@ -42,6 +42,8 @@ class CharacterSelectDialog extends JDialog {
 
 public class SingleShootingGame extends JPanel implements ActionListener {
     Image[] playerImages;
+    Image backgroundImage; //가은 배경 이미지 위해서 추가
+    Image enemyImage;
     int selectedIndex;
     int width = 1100, height = 850;
     Timer timer = new Timer(12, this);
@@ -76,7 +78,15 @@ public class SingleShootingGame extends JPanel implements ActionListener {
         setPreferredSize(new Dimension(width, height)); //song 변경
         setBackground(Color.BLACK); //song 변경
         setFocusable(true); //song 변경
-
+        try {
+            backgroundImage = new ImageIcon(getClass().getResource("/com/kosmo/advance/ex/우주배경.jpeg")).getImage();
+        } catch (Exception e) {
+            System.out.println("배경 이미지 로드 실패"); // 가은 수정 배경
+        } try {
+            enemyImage = new ImageIcon(getClass().getResource("/com/kosmo/advance/ex/우주선.png")).getImage();
+        } catch (Exception e) {
+            System.out.println("적 이미지 로드 실패"); // 가은 수정 우주선(몹)
+        }
         setPreferredSize(new Dimension(width, height));
         setBackground(Color.BLACK);
         setFocusable(true);
@@ -312,6 +322,9 @@ public class SingleShootingGame extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, width, height, this);
+        } // 가은 수정 배경
         if (playerImages != null && selectedIndex >= 0 && playerImages[selectedIndex] != null) {   //영주수정
             g.drawImage(playerImages[selectedIndex], playerX, playerY, playerW, playerH, this); //영주수정
         } else { //영주수정
@@ -327,14 +340,16 @@ public class SingleShootingGame extends JPanel implements ActionListener {
         for (Bullet b : bullets) {
             g.fillArc(b.x, b.y, 7, 18, 0, 360);
         }
-        for (Enemy e2 : enemies) {
-            if (e2.initHp >= 30) g.setColor(Color.RED);
-            else if (e2.initHp >= 20) g.setColor(Color.YELLOW);
-            else if (e2.initHp >= 10) g.setColor(Color.ORANGE);
-            else g.setColor(Color.BLUE);
-            g.fillRect(e2.x, e2.y, e2.w, e2.h);
-            if (e2.initHp >= 30) g.setColor(Color.WHITE);
-            else g.setColor(Color.BLACK);
+        for (Enemy e2 : enemies) { // 가은 수정
+            if (enemyImage != null) {
+                g.drawImage(enemyImage, e2.x, e2.y, e2.w, e2.h, this);
+            } else {
+                g.setColor(Color.GRAY);
+                g.fillRect(e2.x, e2.y, e2.w, e2.h);
+            }
+
+            // HP 표시 (기존 유지)
+            g.setColor(Color.BLACK);
             g.setFont(new Font("굴림", Font.BOLD, 16));
             g.drawString("HP:" + e2.hp, e2.x + e2.w / 2 - 16, e2.y + e2.h / 2);
         }
