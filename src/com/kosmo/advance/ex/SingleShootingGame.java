@@ -14,7 +14,6 @@ public class SingleShootingGame extends JPanel implements ActionListener {
     int playerY = height - 90;
     int playerW = 60, playerH = 60;
     int playerSpeed = 11;
-
     ArrayList<Bullet> bullets = new ArrayList<>();
     ArrayList<Enemy> enemies = new ArrayList<>();
     ArrayList<Item> items = new ArrayList<>();
