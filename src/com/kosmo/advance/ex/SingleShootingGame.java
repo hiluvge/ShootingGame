@@ -129,12 +129,10 @@ public class SingleShootingGame extends JPanel implements ActionListener {
         Random rand = new Random();
         int x = rand.nextInt(width - 50);
 
-        int maxHp = 10;
-        if (stage >= 21) maxHp = 50;
-        else if (stage >= 16) maxHp = 40;
-        else if (stage >= 11) maxHp = 30;
-        else if (stage >= 6) maxHp = 20;
-        int hp = 1 + rand.nextInt(maxHp); // 1~maxHp
+        int MaxHp=0;
+        if (stage <= 5) MaxHp = 5;
+        else if (stage <= 10) MaxHp = 10;
+        int hp = 1 + rand.nextInt(MaxHp); // 1~maxHp
         int speed = 3 + rand.nextInt(3) + stage / 2;
         enemies.add(new Enemy(x, -50, 50, 50, speed, hp, hp));
     }
