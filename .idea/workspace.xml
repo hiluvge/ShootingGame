@@ -6,7 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="f97e6bbd-1745-4177-9819-3acb98675329" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kosmo/advance/ex/SingleShootingGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kosmo/advance/ex/SingleShootingGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kosmo/advance/ex/가은이미지1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kosmo/advance/ex/가은이미지1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kosmo/advance/ex/지형이미지1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kosmo/advance/ex/지형이미지1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kosmo/advance/ex/지형이미지2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kosmo/advance/ex/지형이미지2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/kosmo/advance/ex/혜지이미지1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kosmo/advance/ex/혜지이미지1.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,9 +19,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="30fEYfHq1xnhB73LkIbW5W7nbc3" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -30,7 +33,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "song",
+    "git-widget-placeholder": "main",
     "애플리케이션.Client.executor": "Run",
     "애플리케이션.Server.executor": "Run",
     "애플리케이션.SingleShootingGame (1).executor": "Run",
