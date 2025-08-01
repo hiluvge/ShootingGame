@@ -6,14 +6,50 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class SingleShootingGame extends JPanel implements ActionListener {
-    int width = 900, height = 800;
-    Timer timer = new Timer(12, this);
+class CharacterSelectDialog extends JDialog {
+    private int selectedIndex = -1; // 선택한 인덱스 (0~3)
 
+    public CharacterSelectDialog(JFrame parent) {
+        super(parent, "캐릭터 선택", true);
+        setLayout(new FlowLayout());
+        setSize(620, 200);
+
+        String[] imgNames = {"가은이미지1.png", "지형이미지1.png", "지형이미지2.png", "혜지이미지1.png"};
+        String[] captions = {"가은", "지형1", "지형2", "혜지"};
+
+        for (int i = 0; i < imgNames.length; i++) {
+            final int idx = i;
+            JButton btn = new JButton("<html><center>" + captions[i] + "<br><img src='" + getClass().getResource(imgNames[i]) + "' width='90' height='90'></center></html>");
+            // 또는 이미지크기 크게 하고 싶으면 아래처럼
+            // JButton btn = new JButton(new ImageIcon(getClass().getResource(imgNames[i])));
+            btn.setPreferredSize(new Dimension(120, 120));
+            btn.addActionListener(e -> {
+                selectedIndex = idx;
+                setVisible(false);
+            });
+            add(btn);
+        }
+        setLocationRelativeTo(parent);
+    }
+
+    public int getSelectedIndex() { return selectedIndex; }
+}
+
+
+
+
+
+
+public class SingleShootingGame extends JPanel implements ActionListener {
+    Image[] playerImages;
+    int selectedIndex;
+
+    int width = 900, height = 800;
+    Timer timer = new Timer(10, this);
     int playerX = width / 2 - 30;
     int playerY = height - 90;
-    int playerW = 60, playerH = 60;
-    int playerSpeed = 23;
+    int playerW = 50, playerH = 50;
+    int playerSpeed = 8;
 
     ArrayList<Bullet> bullets = new ArrayList<>();
     ArrayList<Enemy> enemies = new ArrayList<>();
@@ -28,7 +64,13 @@ public class SingleShootingGame extends JPanel implements ActionListener {
 
     boolean leftPressed = false, rightPressed = false, spacePressed = false;
 
-    public SingleShootingGame() {
+    public SingleShootingGame(Image[] playerImages, int selectedIndex) {//song 변경
+        this.playerImages = playerImages;  //song 변경
+        this.selectedIndex = selectedIndex; //song 변경
+        setPreferredSize(new Dimension(width, height)); //song 변경
+        setBackground(Color.BLACK); //song 변경
+        setFocusable(true); //song 변경
+
         setPreferredSize(new Dimension(width, height));
         setBackground(Color.BLACK);
         setFocusable(true);
@@ -147,7 +189,7 @@ public class SingleShootingGame extends JPanel implements ActionListener {
             }
         }
 
-        int nextStage = score / 20000 + 1;
+        int nextStage = score / 500 + 1;
         if (nextStage > stage) {
             stage = nextStage;
             stageMsgFrame = 55;
@@ -164,8 +206,18 @@ public class SingleShootingGame extends JPanel implements ActionListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.CYAN);
-        g.fillRect(playerX, playerY, playerW, playerH);
+
+        if (playerImages != null && selectedIndex >= 0 && playerImages[selectedIndex] != null) {   //영주수정
+            g.drawImage(playerImages[selectedIndex], playerX, playerY, playerW, playerH, this); //영주수정
+        } else { //영주수정
+            g.setColor(Color.CYAN); //영주수정
+            g.fillRect(playerX, playerY, playerW, playerH); //영주수정
+        }
+
+
+
+        //g.setColor(Color.CYAN);
+        //g.fillRect(playerX, playerY, playerW, playerH);
         g.setColor(Color.YELLOW);
         for (Bullet b : bullets) {
             g.fillArc(b.x, b.y, 7, 18, 0, 360);
@@ -222,8 +274,29 @@ public class SingleShootingGame extends JPanel implements ActionListener {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+            String[] imgNames = {"가은이미지1.png", "지형이미지1.png", "지형이미지2.png", "혜지이미지1.png"};  //영주수정
+            Image[] playerImages = new Image[imgNames.length];  //영주수정
+            // ★ 이미지 배열에 미리 로딩
+            for (int i = 0; i < imgNames.length; i++) {  //영주수정
+                try {  //영주수정
+                    playerImages[i] = new ImageIcon(SingleShootingGame.class.getResource(imgNames[i])).getImage(); //영주수정
+                } catch (Exception e) {  //영주수정
+                    System.out.println(imgNames[i] + " 이미지 로드 실패");  //영주수정
+                }  //영주수정
+            }  //영주수정
+
+            // ★ 캐릭터 선택 다이얼로그 띄우기
+            JFrame dummy = new JFrame(); //영주수정
+            CharacterSelectDialog dlg = new CharacterSelectDialog(dummy);  //영주수정
+            dlg.setVisible(true);  //영주수정
+
+            int selectedIdx = dlg.getSelectedIndex();  //영주수정
+            if (selectedIdx == -1) System.exit(0);  //영주수정
+
+
+
             JFrame frame = new JFrame("슈팅 게임");
-            SingleShootingGame game = new SingleShootingGame();
+            SingleShootingGame game = new SingleShootingGame(playerImages, selectedIdx);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setContentPane(game);
             frame.pack();
