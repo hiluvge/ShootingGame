@@ -32,20 +32,20 @@ class CharacterSelectDialog extends JDialog {
 
 public class SingleShootingGame extends JPanel implements ActionListener {
     Image[] playerImages;
-    Image backgroundImage; //가은 배경 이미지 위해서 추가
-    Image enemyImage;
-    int selectedIndex;
     int width = 1100, height = 850;
-    Timer timer = new Timer(12, this);
     int playerX = width / 2 - 30;
     int playerY = height - 90;
-    int playerW = 60, playerH = 60;
-    int playerSpeed = 11;
     ArrayList<Bullet> bullets = new ArrayList<>();
     ArrayList<Enemy> enemies = new ArrayList<>();
     ArrayList<Item> items = new ArrayList<>();
     ArrayList<BossBullet> bossBullets = new ArrayList<>();
+    Image enemyImage;
     Boss boss = null;
+    Image backgroundImage; //가은 배경 이미지 위해서 추가
+    int selectedIndex;
+    Timer timer = new Timer(12, this);
+    int playerW = 60, playerH = 60;
+    int playerSpeed = 11;
     int score = 0;
     boolean running = true;
     int bulletCount = 1;
